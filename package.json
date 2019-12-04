@@ -12,6 +12,7 @@
     "node-sass": "^4.13.0",
     "nuxt": "^2.10.2",
     "sass-loader": "^8.0.0",
+    "v-hotkey": "^0.7.1",
     "vuedraggable": "^2.23.2"
   }
 }
