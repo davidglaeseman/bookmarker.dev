@@ -1,7 +1,23 @@
 <template>
 
 	<div class="index">
-		<h1>{{name}}</h1>
+		<div v-if="message">
+			{{message}}
+		</div>
+
+		<div class="bookmarks" >
+
+		</div>
+
+		<div class="grid">
+			<div class="grid-item bookmark" v-if="bookmarks && bookmarks.length > 0" v-for="bookmark in bookmarks">
+				{{bookmark.name}}
+			</div>
+			<div class="grid-item" v-for="setting in settings">
+				<i :class="setting.icon"></i>
+			</div>
+		</div>
+
 	</div>
 
 </template>
@@ -22,22 +38,36 @@
 		},
 		data() {
 			return {
-				name: 'Bookmarker.dev'
+				message: '',
+				settings:[
+					{name:'Settings', icon: 'fas fa-cog'},
+					{name:'Add Bookmark', icon: 'fa fa-plus'}
+				]
 			}
 		},
-		computed: {},
+		computed: {
+			bookmarks(){
+				return this.$store.getters.bookmarks;
+			}
+		},
 		mounted() {
-
+			this.init();
 		},
 		methods: {
-			example() {
-				return this.name;
+			init() {
+				let bookmarks = localStorage.getItem('bookmarks');
+				if(bookmarks){
+					bookmarks = JSON.parse(bookmarks);
+					this.$store.commit('bookmarks',bookmarks);
+				} else {
+					this.message = 'You have no saved bookmarks';
+				}
 			}
 		},
 		watch: {},
 		head() {
 			return {
-				title: this.name
+				title: this.title
 			}
 		}
 	}

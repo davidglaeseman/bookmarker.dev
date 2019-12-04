@@ -1,7 +1,9 @@
 {
   "name": "bookmarker.dev",
+  "version": "0.1.0",
   "scripts": {
     "dev": "nuxt",
+    "serve": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
@@ -9,6 +11,7 @@
   "dependencies": {
     "node-sass": "^4.13.0",
     "nuxt": "^2.10.2",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "vuedraggable": "^2.23.2"
   }
 }

@@ -17,6 +17,7 @@ export default {
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'stylesheet', type:'text/css', href: '//cdn.jsdelivr.net/gh/davidglaeseman/bookmarker.dev@0.0/static/css/styles.css'},
+            { rel: 'stylesheet', type:'text/css', href: '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css'},
 
         ]
     },
