@@ -1,0 +1,14 @@
+{
+  "name": "bookmarker.dev",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "node-sass": "^4.13.0",
+    "nuxt": "^2.10.2",
+    "sass-loader": "^8.0.0"
+  }
+}
