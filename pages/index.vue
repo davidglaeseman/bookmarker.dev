@@ -13,6 +13,7 @@
 </style>
 
 <script>
+	import styles from '@/assets/sass/__Root.scss';
 	export default {
 		asyncData(){
 			return {
