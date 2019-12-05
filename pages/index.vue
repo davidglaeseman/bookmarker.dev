@@ -38,11 +38,6 @@
 		components:{
 			modal
 		},
-		asyncData(){
-			return {
-				title: 'Bookmarker.dev - Bookmarks For People'
-			}
-		},
 		data() {
 			return {
 				message: '',
@@ -83,7 +78,7 @@
 		watch: {},
 		head() {
 			return {
-				title: this.title
+				title: 'Bookmarker.dev - Bookmarks For People'
 			}
 		}
 	}
