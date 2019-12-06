@@ -10,18 +10,39 @@
 	export default {
 		data() {
 			return {
-				name: 'default'
+				name: 'default',
+				dataLoaded: false
 			}
 		},
-		computed: {},
+		computed: {
+			settings(){
+				return this.$store.getters.settings;
+			}
+		},
 		mounted() {
-
+			this.setStyles();
 		},
 		methods: {
-			example() {
-				return this.name;
+			setStyles() {
+				let style = '';
+				if(this.settings.backgroundColor){
+					style+= 'background-color:'+this.settings.backgroundColor+';'
+				}
+				if(this.settings.backgroundImages){
+					let random = Math.floor(Math.random() * this.settings.backgroundImages.length);
+					style+= 'background-image:url('+this.settings.backgroundImages[random]+');';
+				}
+
+				window.onNuxtReady(() => {
+					document.body.style = style;
+				})
 			}
 		},
-		watch: {}
+		watch: {},
+		head: {
+			bodyAttrs: {
+
+			}
+		}
 	}
 </script>

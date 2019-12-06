@@ -1,12 +1,23 @@
 const initialState = () => {
     return {
-        bookmarks: []
+        bookmarks: [],
+        settings:{
+            backgroundColor: '#efefef',
+            backgroundImages:[]
+        }
     }
 };
 
 export const state = () => initialState();
 
 export const mutations = {
+    settings(state, settings){
+        state.settings = settings;
+    },
+    updateSettings(state, settings){
+        state.settings = settings;//{...state.settings, 'xxx': setting};
+        localStorage.setItem('settings',JSON.stringify(settings));
+    },
     bookmarks(state, bookmarks){
         state.bookmarks = bookmarks;
     },
@@ -22,5 +33,6 @@ export const mutations = {
 };
 
 export const getters = {
+    settings: state => state.settings,
     bookmarks: state => state.bookmarks,
 };

@@ -25,11 +25,10 @@
 					</a>
 				</div>
 			</div>
-			<div class="grid-item settings" v-for="setting in settings" @click="triggerMethod(setting.method)">
+			<div class="grid-item settings" v-for="setting in settingsOptions" @click="triggerMethod(setting.method)">
 				<i :class="setting.icon"></i>
 			</div>
 		</div>
-
 
 		<modal></modal>
 
@@ -53,7 +52,7 @@
 		data() {
 			return {
 				message: '',
-				settings:[
+				settingsOptions:[
 					{name:'Add Bookmark', icon: 'fa fa-plus', method: 'addBookmark'},
 					{name:'Settings', icon: 'fas fa-cog', method: 'changeSettings'},
 				]
@@ -62,6 +61,9 @@
 		computed: {
 			bookmarks(){
 				return this.$store.getters.bookmarks;
+			},
+			settings(){
+				return this.$store.getters.settings;
 			}
 		},
 		mounted() {
@@ -73,6 +75,11 @@
 				if(localStorageBookmarks){
 					localStorageBookmarks = JSON.parse(localStorageBookmarks);
 					this.$store.commit('bookmarks',localStorageBookmarks);
+				}
+				let localStorageSettings = localStorage.getItem('settings');
+				if(localStorageSettings){
+					localStorageSettings = JSON.parse(localStorageSettings);
+					this.$store.commit('settings', localStorageSettings);
 				}
 			},
 			changeSettings(){
