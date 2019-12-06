@@ -1,7 +1,7 @@
 <template>
 
 	<div>
-		settings
+		add bookmark
 		<pre>{{data}}</pre>
 	</div>
 

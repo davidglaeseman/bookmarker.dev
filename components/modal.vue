@@ -6,8 +6,9 @@
 				<div @click="close" aria-label="Close Modal" class="close">
 					<i class="fas fa-times"></i>
 				</div>
-				<pre>{{modal}}</pre>
-				<slot></slot>
+
+				<component :data="modal" v-if="modal.type" :is="modal.type"></component>
+
 			</div>
 		</div>
 	</div>
@@ -15,7 +16,15 @@
 </template>
 
 <script>
+	import addBookmark  from "./addBookmark";
+	import editBookmark from "./editBookmark";
+	import settings from "./settings";
 	export default {
+		components:{
+			addBookmark,
+			editBookmark,
+			settings
+		},
 		data() {
 			return {
 				name: 'modal'

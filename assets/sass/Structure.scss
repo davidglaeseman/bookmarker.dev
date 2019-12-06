@@ -3,6 +3,9 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background: #ccc;
+    background: linear-gradient(0deg, #ccc, #efefef);
+    background-attachment: fixed;
 }
 
 #__nuxt {
@@ -16,11 +19,56 @@ html, body {
         }
     }
 }
-
+.settings{
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    &:hover{
+        background: rgba(0, 0, 0, 0.2);
+    }
+    i{
+        color:#fff;
+        font-size: 30px;
+        text-shadow: 2px 2px 4px #000;
+    }
+}
 
 .bookmarks{
     .bookmark{
-
+        background: rgba(0, 0, 0, 0.05);
+        position: relative;
+        .edit-bookmark{
+            padding: 5px 10px;
+            position: absolute;
+            right:0px;
+            top:0px;
+            color:#fff;
+            cursor: pointer;
+            i{
+                text-shadow: 2px 2px 4px #000;
+            }
+            &:hover{
+                background: rgba(0, 0, 0, 0.05);
+            }
+            &:active{
+                background: rgba(0, 0, 0, 0.2);
+            }
+        }
+        .link{
+            a{
+                display: block;
+                padding: 5px;
+                color:#fff;
+                span{
+                    display: block;
+                    margin-bottom: 10px;
+                    &.icon{
+                        img{
+                            max-height: 40px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 .grid{

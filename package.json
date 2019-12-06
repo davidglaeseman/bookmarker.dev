@@ -1,6 +1,9 @@
 {
   "name": "bookmarker.dev",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "dev": "nuxt",
     "serve": "nuxt",

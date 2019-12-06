@@ -9,17 +9,29 @@
 
 		</div>
 
-		<div class="grid">
-			<div class="grid-item bookmark" v-if="bookmarks && bookmarks.length > 0" v-for="bookmark in bookmarks">
-				{{bookmark.name}}
+		<div class="grid bookmarks">
+			<div class="grid-item bookmark" v-if="bookmarks && Object.keys(bookmarks).length > 0" v-for="bookmark in bookmarks">
+				<div class="edit-bookmark" @click="editBookmark(bookmark)">
+					<i class="fas fa-ellipsis-v"></i>
+				</div>
+				<div class="link">
+					<a :href="bookmark.url" target="_blank">
+						<span class="icon" v-if="bookmark.icon">
+							<img :src="bookmark.icon">
+						</span>
+						<span>
+                        	{{bookmark.name}}
+                    	</span>
+					</a>
+				</div>
 			</div>
-			<div class="grid-item" v-for="setting in settings" @click="triggerMethod(setting.method)">
+			<div class="grid-item settings" v-for="setting in settings" @click="triggerMethod(setting.method)">
 				<i :class="setting.icon"></i>
 			</div>
 		</div>
 
 
-		<modal>Modal Example</modal>
+		<modal></modal>
 
 	</div>
 
@@ -42,8 +54,8 @@
 			return {
 				message: '',
 				settings:[
+					{name:'Add Bookmark', icon: 'fa fa-plus', method: 'addBookmark'},
 					{name:'Settings', icon: 'fas fa-cog', method: 'changeSettings'},
-					{name:'Add Bookmark', icon: 'fa fa-plus', method: 'addBookmark'}
 				]
 			}
 		},
@@ -57,22 +69,23 @@
 		},
 		methods: {
 			init() {
-				let bookmarks = localStorage.getItem('bookmarks');
-				if(bookmarks){
-					bookmarks = JSON.parse(bookmarks);
-					this.$store.commit('bookmarks',bookmarks);
-				} else {
-					this.message = 'You have no saved bookmarks';
+				let localStorageBookmarks = localStorage.getItem('bookmarks');
+				if(localStorageBookmarks){
+					localStorageBookmarks = JSON.parse(localStorageBookmarks);
+					this.$store.commit('bookmarks',localStorageBookmarks);
 				}
 			},
 			changeSettings(){
-				this.$store.commit('modal/modal', {active: true, title: 'changeSettings'});
+				this.$store.commit('modal/modal', {active: true, type: 'settings'});
 			},
 			addBookmark(){
-				this.$store.commit('modal/modal', {active: true, title: 'addBookmark'});
+				this.$store.commit('modal/modal', {active: true, type: 'addBookmark'});
 			},
 			triggerMethod(method){
 				this[method]();
+			},
+			editBookmark(bookmark){
+				this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark});
 			}
 		},
 		watch: {},
