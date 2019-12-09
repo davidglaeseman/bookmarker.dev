@@ -71,14 +71,13 @@
 		},
 		methods: {
 			init() {
-				let localStorageBookmarks = localStorage.getItem('bookmarks');
+				let localStorageBookmarks = this.$getStorage('bookmarks');
+
 				if(localStorageBookmarks){
-					localStorageBookmarks = JSON.parse(localStorageBookmarks);
 					this.$store.commit('bookmarks',localStorageBookmarks);
 				}
-				let localStorageSettings = localStorage.getItem('settings');
+				let localStorageSettings = this.$getStorage('settings');
 				if(localStorageSettings){
-					localStorageSettings = JSON.parse(localStorageSettings);
 					this.$store.commit('settings', localStorageSettings);
 				}
 			},

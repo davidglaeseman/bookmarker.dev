@@ -15,8 +15,8 @@ export const mutations = {
         state.settings = settings;
     },
     updateSettings(state, settings){
-        state.settings = settings;//{...state.settings, 'xxx': setting};
-        localStorage.setItem('settings',JSON.stringify(settings));
+        state.settings = settings;
+        this.$setStorage('settings',settings);
     },
     bookmarks(state, bookmarks){
         state.bookmarks = bookmarks;
@@ -28,7 +28,7 @@ export const mutations = {
         let bookmarks = {...state.bookmarks};
         bookmarks[bookmark.key] = bookmark;
         state.bookmarks = bookmarks;
-        localStorage.setItem('bookmarks',JSON.stringify(state.bookmarks));
+        this.$setStorage('bookmarks',bookmarks);
     }
 };
 

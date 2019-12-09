@@ -35,6 +35,7 @@ export default {
      */
     plugins: [
         {src: '~/plugins/hotkey.js'},
+        {src: '~/plugins/storage.js', ssr: false},
     ],
     /*
      ** Nuxt.js modules

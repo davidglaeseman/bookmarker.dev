@@ -86,6 +86,9 @@
 					backgroundImages: this.backgroundImages
 				};
 				this.$store.commit('updateSettings',settingsChanged);
+				/**
+				 * Placebo disabled/enabled
+				 */
 				setTimeout(()=>{
 					this.disabled = false;
 				},300);
