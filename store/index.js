@@ -23,12 +23,16 @@ export const mutations = {
     },
     addBookmark (state, bookmark) {
         state.bookmarks.push(bookmark);
+        this.$setStorage('bookmarks',state.bookmarks);
     },
     updateBookmark(state, bookmark){
         let bookmarks = {...state.bookmarks};
         bookmarks[bookmark.key] = bookmark;
         state.bookmarks = bookmarks;
         this.$setStorage('bookmarks',bookmarks);
+    },
+    removeBookmark(state, bookmark){
+        let bookmarks = {...state.bookmarks};
     }
 };
 

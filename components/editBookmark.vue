@@ -9,11 +9,17 @@
 			<input v-model="bookmark.url">
 		</div>
 		<div class="m-b-5">
-			<input v-model="bookmark.icon">
+			<input v-model="bookmark.favicon">
 		</div>
 
 		<button :disabled="disabled" type="submit" class="success">
 			Submit
+		</button>
+		<button v-if="confirm===false" @click="confirm = true" class="error" type="button">
+			Delete Bookmark
+		</button>
+		<button v-else="" @click="confirmDelete()" class="danger" type="button">
+			Confirm Delete Bookmark
 		</button>
 	</form>
 
@@ -25,7 +31,8 @@
 		data() {
 			return {
 				disabled: false,
-				bookmark:{}
+				bookmark:{},
+				confirm: false
 			}
 		},
 		computed: {
@@ -33,12 +40,16 @@
 		},
 		mounted() {
 			this.bookmark = {...this.data.bookmark};
+			this.bookmark.key = this.data.key;
 		},
 		methods: {
+			confirmDelete(){
+				this.$store.commit('removeBookmark',this.bookmark);
+				this.$store.commit('modal/modal', false);
+			},
 			submit() {
 				this.disabled = true;
 				this.$store.commit('updateBookmark',this.bookmark);
-				this.bookmark = {...this.$store.getters.bookmarks[this.bookmark.key]};
 				setTimeout(()=>{
 					this.disabled = false;
 				},500);

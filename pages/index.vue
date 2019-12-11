@@ -10,14 +10,14 @@
 		</div>
 
 		<div class="grid bookmarks">
-			<div class="grid-item bookmark" v-if="bookmarks && Object.keys(bookmarks).length > 0" v-for="bookmark in bookmarks">
-				<div class="edit-bookmark" @click="editBookmark(bookmark)">
+			<div class="grid-item bookmark" v-if="bookmarks && Object.keys(bookmarks).length > 0" v-for="(bookmark, key) in bookmarks">
+				<div class="edit-bookmark" @click="editBookmark(bookmark, key)">
 					<i class="fas fa-ellipsis-v"></i>
 				</div>
 				<div class="link">
 					<a :href="bookmark.url" target="_blank">
-						<span class="icon" v-if="bookmark.icon">
-							<img :src="bookmark.icon">
+						<span class="icon" v-if="bookmark.favicon">
+							<img :src="bookmark.favicon">
 						</span>
 						<span>
                         	{{bookmark.name}}
@@ -90,8 +90,8 @@
 			triggerMethod(method){
 				this[method]();
 			},
-			editBookmark(bookmark){
-				this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark});
+			editBookmark(bookmark, key){
+				this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark, key: key});
 			}
 		},
 		watch: {},
