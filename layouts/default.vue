@@ -10,18 +10,41 @@
 	export default {
 		data() {
 			return {
-				name: 'default'
+				name: 'default',
+				dataLoaded: false
 			}
 		},
-		computed: {},
+		computed: {
+			settings(){
+				return this.$store.getters.settings;
+			},
+			modal(){
+				return this.$store.getters['modal/modal'];
+			}
+		},
 		mounted() {
-
+			this.setStyles();
 		},
 		methods: {
-			example() {
-				return this.name;
+			setStyles() {
+				let style = '';
+				if(this.settings.backgroundColor){
+					style+= 'background-color:'+this.settings.backgroundColor+';'
+				}
+				if(this.settings.backgroundImage){
+					style+= 'background-image:url('+this.settings.backgroundImage+');';
+				}
+				document.body.style = style;
 			}
 		},
-		watch: {}
+		watch: {
+			settings:{
+				handler(data){
+					this.setStyles();
+				},
+				deep: true
+			}
+		}
 	}
 </script>
+
