@@ -17,6 +17,9 @@
 		computed: {
 			settings(){
 				return this.$store.getters.settings;
+			},
+			modal(){
+				return this.$store.getters['modal/modal'];
 			}
 		},
 		mounted() {
@@ -28,21 +31,20 @@
 				if(this.settings.backgroundColor){
 					style+= 'background-color:'+this.settings.backgroundColor+';'
 				}
-				if(this.settings.backgroundImages){
-					let random = Math.floor(Math.random() * this.settings.backgroundImages.length);
-					style+= 'background-image:url('+this.settings.backgroundImages[random]+');';
+				if(this.settings.backgroundImage){
+					style+= 'background-image:url('+this.settings.backgroundImage+');';
 				}
-
-				window.onNuxtReady(() => {
-					document.body.style = style;
-				})
+				document.body.style = style;
 			}
 		},
-		watch: {},
-		head: {
-			bodyAttrs: {
-
+		watch: {
+			settings:{
+				handler(data){
+					this.setStyles();
+				},
+				deep: true
 			}
 		}
 	}
 </script>
+

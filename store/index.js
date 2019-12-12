@@ -15,7 +15,7 @@ export const mutations = {
         state.settings = settings;
     },
     updateSettings(state, settings){
-        state.settings = settings;
+        state.settings = {...settings};
         this.$setStorage('settings',settings);
     },
     bookmarks(state, bookmarks){
@@ -33,6 +33,15 @@ export const mutations = {
     },
     removeBookmark(state, bookmark){
         let bookmarks = {...state.bookmarks};
+        let boomarkers = {};
+        Object.keys(bookmarks).forEach(item => {
+            if(bookmarks[item].key === bookmark.key){
+            } else {
+                boomarkers[item] = bookmarks[item];
+            }
+        });
+        state.bookmarks = boomarkers;
+        this.$setStorage('bookmarks',boomarkers);
     }
 };
 
