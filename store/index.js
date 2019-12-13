@@ -22,26 +22,47 @@ export const mutations = {
         state.bookmarks = bookmarks;
     },
     addBookmark (state, bookmark) {
+        state.bookmarks = [...state.bookmarks];
         state.bookmarks.push(bookmark);
         this.$setStorage('bookmarks',state.bookmarks);
     },
     updateBookmark(state, bookmark){
-        let bookmarks = {...state.bookmarks};
-        bookmarks[bookmark.key] = bookmark;
-        state.bookmarks = bookmarks;
-        this.$setStorage('bookmarks',bookmarks);
+        state.bookmarks = [...state.bookmarks.map(index => {
+            if(index.key === 0 && bookmark.key === 0){
+                return bookmark;
+            } else if(index.key && bookmark.key && index.key === bookmark.key){
+                return bookmark;
+            } else {
+                return index;
+            }
+        })];
+        this.$setStorage('bookmarks',state.bookmarks);
     },
     removeBookmark(state, bookmark){
-        let bookmarks = {...state.bookmarks};
-        let boomarkers = {};
-        Object.keys(bookmarks).forEach(item => {
-            if(bookmarks[item].key === bookmark.key){
-            } else {
-                boomarkers[item] = bookmarks[item];
+        console.log(bookmark);
+        state.bookmarks = [...state.bookmarks.filter(index => {
+
+            console.log(bookmark.key, index.key);
+            if(bookmark.key !== index.key){
+                return index;
             }
+        })];
+        this.$setStorage('bookmarks',state.bookmarks);
+    }
+};
+
+export const actions = {
+    addBookmark(state, bookmark){
+        return new Promise((resolve, reject)=>{
+            state.commit('addBookmark', bookmark);
+            resolve(bookmark);
         });
-        state.bookmarks = boomarkers;
-        this.$setStorage('bookmarks',boomarkers);
+    },
+    updateBookmarks(state, bookmark){
+        return new Promise((resolve, reject)=>{
+            state.commit('updateBookmark', bookmark);
+            resolve(bookmark);
+        });
     }
 };
 

@@ -1,15 +1,16 @@
 <template>
 
-	<form @submit.prevent="submit()">
+	<form @submit.prevent="submit()" v-if="bookmark">
+
 		<h3>Edit Bookmark</h3>
 		<div class="m-b-5">
-			<input v-model="bookmark.name">
+			<input v-model="bookmark.name" ref="name" id="name" @focus="setFocus('name')">
 		</div>
 		<div class="m-b-5">
-			<input v-model="bookmark.url">
+			<input v-model="bookmark.url" ref="url" id="url" @focus="setFocus('url')">
 		</div>
 		<div class="m-b-5">
-			<input v-model="bookmark.favicon">
+			<input v-model="bookmark.favicon" ref="favicon" id="favicon" @focus="setFocus('favicon')">
 		</div>
 
 		<button :disabled="disabled" type="submit" class="success">
@@ -21,38 +22,61 @@
 		<button v-else="" @click="confirmDelete()" class="danger" type="button">
 			Confirm Delete Bookmark
 		</button>
+
+		<pre>{{bookmark}}</pre>
+
 	</form>
 
 </template>
 
 <script>
 	export default {
-		props:['data'],
 		data() {
 			return {
 				disabled: false,
-				bookmark:{},
-				confirm: false
+				confirm: false,
+				bookmark: false,
+				focus: false
 			}
 		},
 		computed: {
-
+			modal(){
+				return this.$store.getters['modal/modal'];
+			}
 		},
 		mounted() {
-			this.bookmark = {...this.data.bookmark};
-			this.bookmark.key = this.data.key;
+			this.init();
 		},
 		methods: {
+			init(){
+				this.bookmark = {...this.modal.bookmark};
+			},
+			setFocus(name){
+				this.focus = name;
+			},
 			confirmDelete(){
 				this.$store.commit('removeBookmark',this.bookmark);
 				this.$store.commit('modal/modal', false);
 			},
 			submit() {
-				this.disabled = true;
-				this.$store.commit('updateBookmark',this.bookmark);
-				setTimeout(()=>{
-					this.disabled = false;
-				},500);
+				if(this.focus == 'name'){
+					if(!this.bookmark.name){
+						return false;
+					} else {
+						this.$refs.url.focus();
+					}
+				} else if(this.focus == 'url'){
+					if(!this.bookmark.url){
+						return false;
+					} else {
+						this.$refs.favicon.focus();
+					}
+				}
+
+				this.$store.commit('updateBookmark', this.bookmark);
+				this.$nextTick(()=>{
+					this.bookmark = {...this.bookmark};
+				})
 			}
 		},
 		watch: {}

@@ -35,13 +35,15 @@
 		props:['data'],
 		data() {
 			return {
-				name:'reddit',
-				url:'https://www.reddit.com',
-				favicon:'https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-144x144.png',
+				name:'',
+				url:'',
+				favicon:'',
 			}
 		},
 		computed: {
-
+			length(){
+				return this.$store.getters.bookmarks.length;
+			}
 		},
 		mounted() {
 
@@ -51,9 +53,13 @@
 				let bookmark = {
 					name: this.name,
 					url: this.url,
-					favicon: this.favicon
+					favicon: this.favicon,
+					key: (this.length + 1)
 				};
 				this.$store.commit('addBookmark', bookmark);
+				this.$nextTick(()=>{
+					this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark});
+				});
 			}
 		},
 		watch: {}

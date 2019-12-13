@@ -17,13 +17,11 @@
 			</div>
 		</div>
 
-		<div>
+		<div class="m-b-15">
 			<label for="backgroundImage">
 				Background Image
 			</label>
-
 			<input id="backgroundImage" v-model="backgroundImage">
-
 		</div>
 
 		<button :disabled="disabled" @click="save()" class="success">

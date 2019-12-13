@@ -1,13 +1,6 @@
 <template>
 
 	<div class="index">
-		<div v-if="message">
-			{{message}}
-		</div>
-
-		<div class="bookmarks" >
-
-		</div>
 
 		<div class="grid bookmarks">
 			<div class="grid-item bookmark" v-if="bookmarks && Object.keys(bookmarks).length > 0" v-for="(bookmark, key) in bookmarks">
@@ -91,7 +84,8 @@
 				this[method]();
 			},
 			editBookmark(bookmark, key){
-				this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark, key: key});
+				let book = {...bookmark};
+				this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: book});
 			}
 		},
 		watch: {},
