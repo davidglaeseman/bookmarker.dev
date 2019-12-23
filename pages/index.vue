@@ -29,8 +29,6 @@
 
 			</draggable>
 
-
-
 		</div>
 
 		<modal></modal>
