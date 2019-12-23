@@ -47,11 +47,12 @@ export const mutations = {
         this.$setStorage('bookmarks',state.bookmarks);
     },
     reorderBookmarks(state, bookmarks){
-        this.state.bookmarks = bookmarks.map((item, index) => {
+        let newOrder = bookmarks.map((item, index) => {
             item.key = index;
             return item;
         });
-        this.$setStorage('bookmarks',this.state.bookmarks);
+        this.state.bookmarks = newOrder;
+        this.$setStorage('bookmarks',newOrder);
     }
 };
 
