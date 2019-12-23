@@ -22,26 +22,36 @@ export const mutations = {
         state.bookmarks = bookmarks;
     },
     addBookmark (state, bookmark) {
+        state.bookmarks = [...state.bookmarks];
         state.bookmarks.push(bookmark);
         this.$setStorage('bookmarks',state.bookmarks);
     },
     updateBookmark(state, bookmark){
-        let bookmarks = {...state.bookmarks};
-        bookmarks[bookmark.key] = bookmark;
-        state.bookmarks = bookmarks;
-        this.$setStorage('bookmarks',bookmarks);
+        state.bookmarks = [...state.bookmarks.map(index => {
+            if(index.key === 0 && bookmark.key === 0){
+                return bookmark;
+            } else if(index.key && bookmark.key && index.key === bookmark.key){
+                return bookmark;
+            } else {
+                return index;
+            }
+        })];
+        this.$setStorage('bookmarks',state.bookmarks);
     },
     removeBookmark(state, bookmark){
-        let bookmarks = {...state.bookmarks};
-        let boomarkers = {};
-        Object.keys(bookmarks).forEach(item => {
-            if(bookmarks[item].key === bookmark.key){
-            } else {
-                boomarkers[item] = bookmarks[item];
+        state.bookmarks = [...state.bookmarks.filter(index => {
+            if(bookmark.key !== index.key){
+                return index;
             }
+        })];
+        this.$setStorage('bookmarks',state.bookmarks);
+    },
+    reorderBookmarks(state, bookmarks){
+        this.state.bookmarks = bookmarks.map((item, index) => {
+            item.key = index;
+            return item;
         });
-        state.bookmarks = boomarkers;
-        this.$setStorage('bookmarks',boomarkers);
+        this.$setStorage('bookmarks',this.state.bookmarks);
     }
 };
 

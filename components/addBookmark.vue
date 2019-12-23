@@ -2,21 +2,23 @@
 
 	<form @submit.prevent="saveBookmark()">
 
-		<div class="m-b-15">
+		<h3 class="m-b-15">Add Bookmark</h3>
+
+		<div class="m-b-10">
 			<label for="name">
 				Name
 			</label>
 			<input ref="name" id="name" v-model="name">
 		</div>
-		<div class="m-b-15">
+		<div class="m-b-10">
 			<label for="url">
-				url
+				URL
 			</label>
 			<input ref="url" id="url" v-model="url">
 		</div>
-		<div class="m-b-15">
+		<div class="m-b-10">
 			<label for="favicon">
-				favicon
+				Favicon
 			</label>
 			<input ref="favicon" id="favicon" v-model="favicon">
 		</div>
@@ -35,13 +37,16 @@
 		props:['data'],
 		data() {
 			return {
-				name:'reddit',
-				url:'https://www.reddit.com',
-				favicon:'https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-144x144.png',
+				name:'',
+				url:'',
+				favicon:'',
+				faviconSuggestion: false
 			}
 		},
 		computed: {
-
+			length(){
+				return this.$store.getters.bookmarks.length;
+			}
 		},
 		mounted() {
 
@@ -51,11 +56,16 @@
 				let bookmark = {
 					name: this.name,
 					url: this.url,
-					favicon: this.favicon
+					favicon: this.favicon,
+					key: (this.length + 1)
 				};
 				this.$store.commit('addBookmark', bookmark);
+				this.$nextTick(()=>{
+					this.$store.commit('modal/modal', {active: true, type: 'editBookmark', bookmark: bookmark});
+				});
 			}
 		},
-		watch: {}
+		watch: {
+		}
 	}
 </script>
