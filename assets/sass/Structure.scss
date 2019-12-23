@@ -40,13 +40,13 @@ html, body {
             background: rgba(0, 0, 0, 0.2);
         }
         .edit-bookmark, .re-order-bookmark{
-            padding: 5px 10px;
+            padding: 4px;
             position: absolute;
             right:0px;
             top:0px;
             color:#fff;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             i{
                 text-shadow: 2px 2px 4px #000;
             }
@@ -69,26 +69,32 @@ html, body {
         .link{
             position: relative;
             z-index: 2;
+            text-align: center;
             a{
                 display: block;
                 padding:5px 10px;
                 color:#fff;
+                text-align: center;
                 span{
-                    display: block;
+                    text-align: center;
+                    display: inline-block;
                     margin-bottom: 10px;
                     &.icon{
                         width: 50px;
                         height: 50px;
-                        border-radius: 100%;
-                        display: flex;
+                        display: inline-flex;
                         align-items: center;
                         justify-content: center;
 
-                        background: #fff;
+                        background: transparent;
                         overflow: hidden;
                         img{
+                            display: inline-block;
                             max-width: 80%;
                         }
+                    }
+                    &.name{
+                        display: block;
                     }
                 }
             }

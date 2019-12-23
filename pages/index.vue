@@ -3,22 +3,22 @@
 	<div class="index">
 
 		<div class="grid bookmarks" >
-			<draggable handle=".bookmark" class="grid-container" v-model="bookmarkList" @start="drag=true" @end="drag=false">
+			<draggable handle=".re-order-icon" class="grid-container" v-model="bookmarkList" @start="drag=true" @end="drag=false">
 				<div class="grid-item bookmark"   v-for="bookmark in bookmarks">
 					<div class="edit-bookmark" @click="editBookmark(bookmark, key)">
 						<i class="fas fa-ellipsis-v"></i>
 					</div>
 					<div class="re-order-bookmark">
-						<i class="fas fa-arrows-alt"></i>
+						<i class="fas fa-arrows-alt re-order-icon"></i>
 					</div>
 					<div class="link">
 						<a :href="bookmark.url" target="_blank">
-						<span class="icon" v-if="bookmark.favicon">
-							<img :src="bookmark.favicon">
-						</span>
-							<span>
-                        	{{bookmark.name}}
-                    	</span>
+							<span class="icon" v-if="bookmark.favicon">
+								<img :src="bookmark.favicon">
+							</span>
+							<span class="name">
+                        		{{bookmark.name}}
+                    		</span>
 						</a>
 					</div>
 				</div>
