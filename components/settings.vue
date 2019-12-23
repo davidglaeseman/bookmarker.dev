@@ -1,7 +1,7 @@
 <template>
 
 	<div>
-		<h1>Settings</h1>
+		<h3 class="m-b-15">Settings</h3>
 
 		<div class="m-b-15">
 			<label>

@@ -2,14 +2,23 @@
 
 	<form @submit.prevent="submit()" v-if="bookmark">
 
-		<h3>Edit Bookmark</h3>
-		<div class="m-b-5">
+		<h3 class="m-b-15">Edit Bookmark</h3>
+		<div class="m-b-10">
+			<label for="name">
+				Name
+			</label>
 			<input v-model="bookmark.name" ref="name" id="name" @focus="setFocus('name')">
 		</div>
-		<div class="m-b-5">
+		<div class="m-b-10">
+			<label for="url">
+				URL
+			</label>
 			<input v-model="bookmark.url" ref="url" id="url" @focus="setFocus('url')">
 		</div>
-		<div class="m-b-5">
+		<div class="m-b-10">
+			<label for="favicon">
+				Favicon
+			</label>
 			<input v-model="bookmark.favicon" ref="favicon" id="favicon" @focus="setFocus('favicon')">
 		</div>
 
@@ -22,8 +31,6 @@
 		<button v-else="" @click="confirmDelete()" class="danger" type="button">
 			Confirm Delete Bookmark
 		</button>
-
-		<pre>{{bookmark}}</pre>
 
 	</form>
 

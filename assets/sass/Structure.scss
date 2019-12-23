@@ -39,13 +39,14 @@ html, body {
         &:hover{
             background: rgba(0, 0, 0, 0.2);
         }
-        .edit-bookmark{
+        .edit-bookmark, .re-order-bookmark{
             padding: 5px 10px;
             position: absolute;
             right:0px;
             top:0px;
             color:#fff;
             cursor: pointer;
+            font-size: 13px;
             i{
                 text-shadow: 2px 2px 4px #000;
             }
@@ -56,19 +57,37 @@ html, body {
                 background: rgba(0, 0, 0, 0.2);
             }
         }
+        .re-order-bookmark{
+            top:auto;
+            bottom: 0px;
+            cursor: grab;
+            z-index: 1;
+            &:active{
+                cursor: grabbing;
+            }
+        }
         .link{
+            position: relative;
+            z-index: 2;
             a{
                 display: block;
-                padding: 5px;
+                padding:5px 10px;
                 color:#fff;
                 span{
                     display: block;
                     margin-bottom: 10px;
                     &.icon{
-                        display: inline-block;
+                        width: 50px;
+                        height: 50px;
                         border-radius: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        background: #fff;
+                        overflow: hidden;
                         img{
-                            max-height: 40px;
+                            max-width: 80%;
                         }
                     }
                 }
@@ -77,9 +96,13 @@ html, body {
     }
 }
 .grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
-    grid-auto-rows: 1fr;
+
+
+    .grid-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+        grid-auto-rows: 1fr;
+    }
 
     .grid-item{
         margin:0px 5px 5px 0px;

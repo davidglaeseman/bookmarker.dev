@@ -39,30 +39,19 @@ export const mutations = {
         this.$setStorage('bookmarks',state.bookmarks);
     },
     removeBookmark(state, bookmark){
-        console.log(bookmark);
         state.bookmarks = [...state.bookmarks.filter(index => {
-
-            console.log(bookmark.key, index.key);
             if(bookmark.key !== index.key){
                 return index;
             }
         })];
         this.$setStorage('bookmarks',state.bookmarks);
-    }
-};
-
-export const actions = {
-    addBookmark(state, bookmark){
-        return new Promise((resolve, reject)=>{
-            state.commit('addBookmark', bookmark);
-            resolve(bookmark);
-        });
     },
-    updateBookmarks(state, bookmark){
-        return new Promise((resolve, reject)=>{
-            state.commit('updateBookmark', bookmark);
-            resolve(bookmark);
+    reorderBookmarks(state, bookmarks){
+        this.state.bookmarks = bookmarks.map((item, index) => {
+            item.key = index;
+            return item;
         });
+        this.$setStorage('bookmarks',this.state.bookmarks);
     }
 };
 

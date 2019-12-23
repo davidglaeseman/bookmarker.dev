@@ -2,21 +2,23 @@
 
 	<form @submit.prevent="saveBookmark()">
 
-		<div class="m-b-15">
+		<h3 class="m-b-15">Add Bookmark</h3>
+
+		<div class="m-b-10">
 			<label for="name">
 				Name
 			</label>
 			<input ref="name" id="name" v-model="name">
 		</div>
-		<div class="m-b-15">
+		<div class="m-b-10">
 			<label for="url">
-				url
+				URL
 			</label>
 			<input ref="url" id="url" v-model="url">
 		</div>
-		<div class="m-b-15">
+		<div class="m-b-10">
 			<label for="favicon">
-				favicon
+				Favicon
 			</label>
 			<input ref="favicon" id="favicon" v-model="favicon">
 		</div>
@@ -38,6 +40,7 @@
 				name:'',
 				url:'',
 				favicon:'',
+				faviconSuggestion: false
 			}
 		},
 		computed: {
@@ -62,6 +65,7 @@
 				});
 			}
 		},
-		watch: {}
+		watch: {
+		}
 	}
 </script>

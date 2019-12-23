@@ -2,25 +2,35 @@
 
 	<div class="index">
 
-		<div class="grid bookmarks">
-			<div class="grid-item bookmark" v-if="bookmarks && Object.keys(bookmarks).length > 0" v-for="(bookmark, key) in bookmarks">
-				<div class="edit-bookmark" @click="editBookmark(bookmark, key)">
-					<i class="fas fa-ellipsis-v"></i>
-				</div>
-				<div class="link">
-					<a :href="bookmark.url" target="_blank">
+		<div class="grid bookmarks" >
+			<draggable handle=".bookmark" class="grid-container" v-model="bookmarkList" @start="drag=true" @end="drag=false">
+				<div class="grid-item bookmark"   v-for="bookmark in bookmarks">
+					<div class="edit-bookmark" @click="editBookmark(bookmark, key)">
+						<i class="fas fa-ellipsis-v"></i>
+					</div>
+					<div class="re-order-bookmark">
+						<i class="fas fa-arrows-alt"></i>
+					</div>
+					<div class="link">
+						<a :href="bookmark.url" target="_blank">
 						<span class="icon" v-if="bookmark.favicon">
 							<img :src="bookmark.favicon">
 						</span>
-						<span>
+							<span>
                         	{{bookmark.name}}
                     	</span>
-					</a>
+						</a>
+					</div>
 				</div>
-			</div>
-			<div class="grid-item settings" v-for="setting in settingsOptions" @click="triggerMethod(setting.method)">
-				<i :class="setting.icon"></i>
-			</div>
+
+				<div class="grid-item settings" v-for="setting in settingsOptions" @click="triggerMethod(setting.method)">
+					<i :class="setting.icon"></i>
+				</div>
+
+			</draggable>
+
+
+
 		</div>
 
 		<modal></modal>
@@ -29,18 +39,14 @@
 
 </template>
 
-<style type="text/css" lang="scss">
-	.index {
-
-	}
-</style>
-
 <script>
 	import styles from '@/assets/sass/__Root.scss';
 	import modal from '@/components/modal';
+	import draggable from 'vuedraggable'
 	export default {
 		components:{
-			modal
+			modal,
+			draggable
 		},
 		data() {
 			return {
@@ -52,6 +58,14 @@
 			}
 		},
 		computed: {
+			bookmarkList:{
+				get(){
+					return this.$store.getters.bookmarks;
+				},
+				set(bookmarks){
+					this.$store.commit('reorderBookmarks',bookmarks);
+				}
+			},
 			bookmarks(){
 				return this.$store.getters.bookmarks;
 			},
