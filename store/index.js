@@ -47,7 +47,7 @@ export const mutations = {
         this.$setStorage('bookmarks',state.bookmarks);
     },
     reorderBookmarks(state, bookmarks){
-        let newOrder = bookmarks.map((item, index) => {
+        let newOrder = [...bookmarks].map((item, index) => {
             item.key = index;
             return item;
         });
