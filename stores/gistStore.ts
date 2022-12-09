@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import {ofetch} from "ofetch";
-import {getLocalStorage} from "~/composables/utilities";
+import {getLocalStorage, setLocalStorage} from "~/composables/utilities";
 
 interface OwnerInterface {
     login: string;
@@ -53,7 +53,14 @@ export const storeGist = defineStore('storeGist', {
         async sync(){
             this.gistId = await getLocalStorage('gistId')
             this.token = await getLocalStorage('token')
-            return await this.fetchGist()
+
+            if(this.gistId && this.token){
+                return await this.fetchGist()
+            } else {
+                this.settings = await getLocalStorage('settings')
+                this.bookmarks = await getLocalStorage('bookmarks')
+            }
+
         },
         async fetchGist() {
             if(!this.gistId || !this.token || this.gist?.owner){
@@ -68,6 +75,30 @@ export const storeGist = defineStore('storeGist', {
             this.gist = gist
             return gist
         },
+        async saveToken(){
+            if(this.gistId && this.token){
+
+                const isValidGist = await ofetch(`https://api.github.com/gists/${this.gistId}`, { method:'get', parseResponse: JSON.parse }).catch((error)=> error.data)
+                console.log({isValidGist})
+
+            } else {
+                console.log('snmaksksk')
+            }
+        },
+        async saveData(section: string){
+            console.log('saveData',section)
+            console.log(this.gistId, this.token)
+            if(!this.gist){
+                console.log('SAVE LOCAL')
+                if(section === 'section'){
+                    setLocalStorage({key:'settings', value: this.settings})
+                } else if(section === 'bookmarks'){
+                    setLocalStorage({key:'bookmarks', value: this.bookmarks})
+                }
+            } else {
+                console.log('SYNC GIST')
+            }
+        }
     },
 })
 

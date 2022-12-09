@@ -4,6 +4,9 @@ import { storeGist } from '~/stores/gistStore'
 const gistStore = storeGist()
 const owner = computed(() => gistStore?.gist?.owner)
 const disabled = ref(false)
+const saveSettings = () => {
+  console.log('xxx')
+}
 </script>
 
 <template>
@@ -15,19 +18,24 @@ const disabled = ref(false)
           Settings
         </div>
 
-        <div class="mb-4">
-          <label for="backgroundColor">
-            Background Color
-          </label>
-          <input type="color" id="backgroundColor" v-model="gistStore.settings.backgroundColor" />
-        </div>
+        <form @submit.prevent="gistStore.saveData('settings')">
+          <div class="mb-4">
+            <label for="backgroundColor">
+              Background Color
+            </label>
+            <input type="color" id="backgroundColor" v-model="gistStore.settings.backgroundColor" />
+          </div>
 
-        <div>
-          <label for="backgroundImage">
-            Background Image
-          </label>
-          <input type="text" id="backgroundImage" v-model="gistStore.settings.backgroundImage" />
-        </div>
+          <div class="mb-4">
+            <label for="backgroundImage">
+              Background Image
+            </label>
+            <input type="text" id="backgroundImage" v-model="gistStore.settings.backgroundImage" />
+          </div>
+          <button :disabled="!gistStore.settings.backgroundColor && !gistStore.settings.backgroundImage"  class="bg-base px-4 py-2 rounded border-2 border-base-400 disabled:bg-base-700 disabled:border-base-600 disabled:text-base-300"  type="submit">
+            Save
+          </button>
+        </form>
 
 
       </div>
@@ -51,7 +59,7 @@ const disabled = ref(false)
         </div>
 
 
-        <form @submit.prevent="saveToken()">
+        <form @submit.prevent="gistStore.saveToken()">
           <div class="mb-2">
             <label for="gistId">
               Gist ID
@@ -66,7 +74,7 @@ const disabled = ref(false)
           </div>
           <div class="text-right">
             <button :disabled="disabled || !gistStore.gistId?.length || !gistStore.token?.length" class="bg-base px-4 py-2 rounded border-2 border-base-400 disabled:bg-base-700 disabled:border-base-600 disabled:text-base-300"  type="submit">
-              Save
+              Submit
             </button>
           </div>
         </form>
