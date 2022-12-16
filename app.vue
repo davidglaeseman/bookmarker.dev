@@ -23,16 +23,12 @@ onMounted(async () => {
 <template>
   <div class="app-container w-full h-full  text-white p-4" :class="gistStore.backgroundStyles.class" :style="gistStore.backgroundStyles.style">
 
-
     <div v-if="error">
       Local storage in not enabled in your browser. You will not be able to save your bookmarks.
     </div>
 
 
     <div class="fixed right-2 bottom-2  flex items-center space-x-2">
-      <div class="p-2 rounded  z-40 bg-base-700" v-if="cloudSync">
-        <icons-cloud :width="20" :height="20" class="text-blue-500" />
-      </div>
       <button @click="settingsModal = true" class="flex items-center justify-center p-2 rounded  z-40 bg-base-700 text-base-300 hover:text-fuchsia-600">
         <icons-options :width="20" :height="20" />
       </button>

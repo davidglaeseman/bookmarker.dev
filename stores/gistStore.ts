@@ -47,6 +47,26 @@ export const storeGist = defineStore('storeGist', {
             return {
                 class: state.defaultBackgroundClass
             }
+        },
+        settingsPayload(state){
+            return {
+                description:"Bookmarker.dev Settings",
+                files: {
+                    'bookmark-settings.json':{
+                        content: JSON.stringify({ backgroundColor: state.settings.backgroundColor, backgroundImage: state.settings.backgroundImage,})
+                    }
+                }
+            }
+        },
+        bookmarksPayload(state){
+            return {
+                description:"Bookmarker.dev Bookmarks",
+                files: {
+                    'bookmarks.json':{
+                        content: JSON.stringify(state.bookmarks)
+                    }
+                }
+            }
         }
     },
     actions: {
@@ -62,6 +82,13 @@ export const storeGist = defineStore('storeGist', {
             }
 
         },
+        transformData(data: string){
+            try{
+                return JSON.parse(data)
+            } catch (e) {
+                return data
+            }
+        },
         async fetchGist() {
             if(!this.gistId || !this.token || this.gist?.owner){
                 return false
@@ -70,33 +97,31 @@ export const storeGist = defineStore('storeGist', {
                 this.error = error
                 return Promise.reject(error)
             })
-            this.bookmarks = gist?.files['bookmarks.json']?.content ? JSON.parse(gist.files['bookmarks.json'].content) : []
-            this.settings = gist?.files['bookmark-settings.json']?.content ? JSON.parse(gist.files['bookmark-settings.json'].content) : {}
+            this.bookmarks = gist?.files['bookmarks.json']?.content ? this.transformData(gist.files['bookmarks.json'].content) : []
+            this.settings = gist?.files['bookmark-settings.json']?.content ? this.transformData(gist.files['bookmark-settings.json'].content) : {}
             this.gist = gist
             return gist
         },
         async saveToken(){
-            if(this.gistId && this.token){
-
-                const isValidGist = await ofetch(`https://api.github.com/gists/${this.gistId}`, { method:'get', parseResponse: JSON.parse }).catch((error)=> error.data)
-                console.log({isValidGist})
-
+            const isValidGist = await ofetch(`https://api.github.com/gists/${this.gistId}`, { method:'get', parseResponse: JSON.parse }).catch((error)=> Promise.reject(error.data))
+            if(this.gistId && this.token && isValidGist){
+                setLocalStorage({key:'gistId', value: this.gistId})
+                setLocalStorage({key:'token', value: this.token})
             } else {
                 console.log('snmaksksk')
             }
         },
         async saveData(section: string){
-            console.log('saveData',section)
-            console.log(this.gistId, this.token)
             if(!this.gist){
-                console.log('SAVE LOCAL')
                 if(section === 'section'){
                     setLocalStorage({key:'settings', value: this.settings})
                 } else if(section === 'bookmarks'){
                     setLocalStorage({key:'bookmarks', value: this.bookmarks})
                 }
             } else {
-                console.log('SYNC GIST')
+
+                const body = section === 'settings' ? this.settingsPayload : this.bookmarksPayload
+                await ofetch(`https://api.github.com/gists/${this.gistId}`, { method:'PATCH', body, headers:{'Accept':'application/vnd.github+json','Authorization':`Bearer ${this.token}`}, parseResponse: JSON.parse }).catch((error)=> error.data)
             }
         }
     },

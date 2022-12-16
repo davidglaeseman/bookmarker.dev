@@ -24,7 +24,7 @@ export const isLocalStorageAvailable = () => {
     }
 }
 
-export const setLocalStorage = ({key, value}:{key: string, value: object}) =>{
+export const setLocalStorage = ({key, value}:{key: string, value: object | string}) =>{
     return window.localStorage.setItem(key,JSON.stringify(value))
 }
 
