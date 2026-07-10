@@ -9,6 +9,16 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@vueuse/nuxt',
   ],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      meta: [
+        { name: 'description', content: 'bookmarker.dev | free simple bookmarks' }
+      ]
+    }
+  },
   css: [
     '~/assets/css/_main.css',
   ],
