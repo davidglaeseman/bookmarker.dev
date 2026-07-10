@@ -69,7 +69,7 @@ useHead({
       </button>
     </div>
 
-    <button class="fixed left-2 bottom-2 z-30  bg-black  ring-4 ring-black/30 flex p-1 rounded-full cursor-pointer items-center justify-center" @click="appStore.settingsModalOpen = !appStore.settingsModalOpen">
+    <button :aria-label="appStore.settingsModalOpen ? 'Open Global Settings' : 'Close Global Settings'" class="fixed left-2 bottom-2 z-30  bg-black  ring-4 ring-black/30 flex p-1 rounded-full cursor-pointer items-center justify-center" @click="appStore.settingsModalOpen = !appStore.settingsModalOpen">
       <icon name="lucide:cog" :size="30" :class="[appStore.settingsModalOpen ? 'rotate-90 text-white' : 'text-zinc-400 hover:text-zinc-200', 'transition-all']" />
     </button>
     <div class="fixed right-2 bottom-2 py-0.5 px-1 text-xs font-black" :style="`background-color:${logoBgColor};color:${backgroundColor};`">

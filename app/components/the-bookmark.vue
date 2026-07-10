@@ -13,7 +13,7 @@ const emit = defineEmits<{
   <div class="flex flex-col relative  rounded-md border border-transparent hover:border-white">
     <a class="w-full inline-flex grow items-center text-center  p-2 justify-center min-h-[90px]" :href="bookmark.url" target="_blank">
       <div>
-        <div v-if="bookmark.favicon" class="flex items-center justify-center mb-2"><img  class="inline-block max-h-[50px]"  :src="bookmark.favicon"></div>
+        <div v-if="bookmark.favicon" class="flex items-center justify-center mb-2"><img width="50" height="50" :alt="`${bookmark.name} Icon`"  class="inline-block max-h-[50px]"  :src="bookmark.favicon"></div>
         <div class="text-sm  p-0.5">
           {{bookmark.name}}
         </div>
@@ -26,7 +26,7 @@ const emit = defineEmits<{
         </button>
       </div>
       <div v-if="size > 1">
-        <button class="cursor-move flex p-0.5 | handle">
+        <button class="cursor-move flex p-0.5 | handle" :aria-label="`Move ${bookmark.name} Bookmark`">
           <icon name="mdi:cursor-move" />
         </button>
       </div>
