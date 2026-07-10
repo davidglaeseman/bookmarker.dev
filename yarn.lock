@@ -4828,7 +4828,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crossws@npm:>=0.2.0 <0.5.0, crossws@npm:^0.3.5":
+"crossws@npm:>=0.2.0 <0.5.0":
+  version: 0.4.9
+  resolution: "crossws@npm:0.4.9"
+  peerDependencies:
+    srvx: ">=0.11.5"
+  peerDependenciesMeta:
+    srvx:
+      optional: true
+  checksum: 10c0/f65daa31d6739983a21a69a78ccf6e5d3ea6cf694c7d17fcbe4009790bea5af605d51586797f3d70191f461e17d50cc744e272f9f05680268fc64e6389eedb92
+  languageName: node
+  linkType: hard
+
+"crossws@npm:^0.3.5":
   version: 0.3.5
   resolution: "crossws@npm:0.3.5"
   dependencies:
@@ -5512,8 +5524,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-jsdoc@npm:^63.0.2":
-  version: 63.0.12
-  resolution: "eslint-plugin-jsdoc@npm:63.0.12"
+  version: 63.0.13
+  resolution: "eslint-plugin-jsdoc@npm:63.0.13"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.88.0"
     "@es-joy/resolve.exports": "npm:1.2.0"
@@ -5531,7 +5543,7 @@ __metadata:
     to-valid-identifier: "npm:^1.0.0"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
-  checksum: 10c0/a249245179242ab19fa29181c608ced7749401375c0941dc6a848cfbcbe89ac85f8d183ebfcd2388eb54b11a10308714198d2824f9065b14767c68148c79d805
+  checksum: 10c0/5abeb767d9d26bde94eb93858b84b9f510bf79d3f5eec631552c0490c1fbab45f456be455ea9de4f3127cdc0ac14889294092080af83ae283ec0f1a6f4ae13c7
   languageName: node
   linkType: hard
 
@@ -6331,10 +6343,10 @@ __metadata:
   linkType: hard
 
 "h3-next@npm:h3@^2.0.1-rc.7":
-  version: 2.0.1-rc.23
-  resolution: "h3@npm:2.0.1-rc.23"
+  version: 2.0.1-rc.24
+  resolution: "h3@npm:2.0.1-rc.24"
   dependencies:
-    rou3: "npm:^0.9.0"
+    rou3: "npm:^0.9.1"
     srvx: "npm:^0.11.21"
   peerDependencies:
     crossws: ^0.4.9
@@ -6343,7 +6355,7 @@ __metadata:
       optional: true
   bin:
     h3: bin/h3.mjs
-  checksum: 10c0/8a5f6483153121120edd7bd7a1958c6612e637fc8e2d9ff39f513fe844a3c1904c6f496ca82b089940dcdee801d20952543a1ad99fa29d675e66d3ba6da66c64
+  checksum: 10c0/ac60fbdda1305ecea81abe2cbc987e9c9238b0157a7f2e253194f7352af01e5cdb5ae35de074da1752c691ffd3a9a6d4fc88629f47b2e7dbfeffbbdcad31ce86
   languageName: node
   linkType: hard
 
@@ -6508,9 +6520,9 @@ __metadata:
   linkType: hard
 
 "ignore@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "ignore@npm:7.0.5"
-  checksum: 10c0/ae00db89fe873064a093b8999fe4cc284b13ef2a178636211842cceb650b9c3e390d3339191acb145d81ed5379d2074840cf0c33a20bdbd6f32821f79eb4ad5d
+  version: 7.0.6
+  resolution: "ignore@npm:7.0.6"
+  checksum: 10c0/fc01ef1d14efbe003439b60538726351e81483d1b6f55bdbb3a4465c6346d9481afad5b350dfbd604ddd7049618ef9093ff26dc147984aabc303c56ba53ea3b5
   languageName: node
   linkType: hard
 
@@ -9190,7 +9202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rou3@npm:^0.9.0":
+"rou3@npm:^0.9.1":
   version: 0.9.1
   resolution: "rou3@npm:0.9.1"
   checksum: 10c0/02e60de87d5da846c68259cde2b9f762373a09bb56935d3118150f3bafa2fec59ee8d0e594be72c0881503eee4bfa34c55099c48adbcd0073f629dd93a4c3b22
@@ -9982,9 +9994,9 @@ __metadata:
   linkType: hard
 
 "ultrahtml@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "ultrahtml@npm:1.6.0"
-  checksum: 10c0/1140be819fdde198d83ad61b0186cb1fdb9d3a5d77ff416a752ae735089851a182d2100a1654f6b70dbb4f67881fcac1afba9323e261c8a95846a63f668b4c2a
+  version: 1.7.0
+  resolution: "ultrahtml@npm:1.7.0"
+  checksum: 10c0/a56907b3ea4b0c16d30c37cb814138f8ae47044892a9d1c5ecca0731e24c2c4cd1c9cfa53d57bf508b21bc3b993e3c02bf3f9c3bfc156d18ed7e12c62a140f75
   languageName: node
   linkType: hard
 
