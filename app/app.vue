@@ -57,7 +57,7 @@ useHead({
           />
         </template>
       </draggable>
-      <button class="flex items-center justify-center bg-black/50 min-h-[110px] rounded-md cursor-pointer hover:ring-2 hover:ring-green-500 p-2" @click="activeBookmark = {name:'', url:'', favicon:'', key: appStore.bookmarks.length, new: true}">
+      <button class="flex items-center justify-center bg-black/50 w-[120px] h-[120px] rounded-md cursor-pointer hover:ring-2 hover:ring-green-500 p-2" @click="activeBookmark = {name:'', url:'', favicon:'', key: appStore.bookmarks.length, new: true}">
         <div>
           <div>
             <icon name="lucide:plus" :size="30" />
