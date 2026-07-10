@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig, configDefaults } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath } from 'node:url'
 
@@ -15,6 +15,8 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: false,
     setupFiles: ['./vitest.setup.ts'],
+    // Playwright e2e specs live in tests/e2e and must not be run by Vitest.
+    exclude: [...configDefaults.exclude, 'tests/e2e/**'],
     coverage: {
       provider: 'v8',
       include: ['app/composables/**', 'app/stores/**', 'app/components/**'],
