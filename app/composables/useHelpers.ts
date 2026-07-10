@@ -1,4 +1,4 @@
-import {type Bookmark, SettingDefault} from "~/app/stores/useAppStore";
+import {type Bookmark, SettingDefault} from "@/stores/useAppStore";
 
 export const useHelpers = () => {
 

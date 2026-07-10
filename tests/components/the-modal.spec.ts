@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import TheModal from '~/app/components/the-modal.vue'
+import TheModal from '@/components/the-modal.vue'
 
 // Mock @vueuse/core
 vi.mock('@vueuse/core', () => ({

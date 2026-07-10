@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import TheSelect from '~/app/components/the-select.vue'
+import TheSelect from '@/components/the-select.vue'
 
 describe('the-select.vue', () => {
   const mockOptions = [
