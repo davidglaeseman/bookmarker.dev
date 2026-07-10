@@ -23,7 +23,7 @@ if (escape) {
 
 <template>
     <div v-if="open"  :class="[hot ? '' : 'cursor-pointer ']" class="fixed left-0 top-0 w-full h-full [-webkit-backdrop-filter:blur(0.25rem)]  backdrop-blur-xs z-20 flex items-center justify-center" @click.self="emit('close')">
-      <div class="max-w-[500px] w-[calc(100vw-2rem)]" @mouseenter="hot = true" @mouseleave="hot=false">
+      <div class="max-w-[700px] w-[calc(100vw-2rem)]" @mouseenter="hot = true" @mouseleave="hot=false">
         <div class="flex items-center">
           <div class="grow">
             <div v-if="title" class="text-2xl bg-black text-white inline-block py-2 px-4">{{title}}</div>

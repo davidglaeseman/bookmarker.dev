@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-const {setStorageSetting} = useHelpers()
+import { useHelpers } from '~/app/composables/useHelpers'
 
 export type Bookmark = {
   name: string;
@@ -44,30 +44,37 @@ export const useAppStore = defineStore('useAppStore', {
   actions: {
     handleUpdateBackgroundColor(value: string){
       this.setting.backgroundColor = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundColor', value})
     },
     handleUpdateTextColor(value: string){
       this.setting.textColor = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'textColor', value})
     },
     handleBackgroundChange(value: string){
       this.setting.backgroundImage = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundImage', value})
     },
     handleBackgroundSizeChange(value: string){
       this.setting.backgroundSize = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundSize', value})
     },
     handleBackgroundRepeatChange(value: string){
       this.setting.backgroundRepeat = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundRepeat', value})
     },
     handleBackgroundAttachmentChange(value: string){
       this.setting.backgroundAttachment = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundAttachment', value})
     },
     handleBackgroundPositionChange(value: string){
       this.setting.backgroundPosition = value
+      const { setStorageSetting } = useHelpers()
       setStorageSetting({key:'backgroundPosition', value})
     }
   }
