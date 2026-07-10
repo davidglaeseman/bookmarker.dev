@@ -1,0 +1,45 @@
+html,body,#__nuxt{
+    height: 100%;
+}
+html,body{
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    margin:0;
+    padding:0;
+}
+
+
+.space-mono-regular {
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bookmark-grid{
+    width: 100%;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr) );
+}
+
+.bookmark-grid::-webkit-scrollbar, .content::-webkit-scrollbar {
+    width: 10px; /* Width of the vertical scrollbar */
+    height: 10px; /* Height of the horizontal scrollbar */
+    padding: 10px;
+}
+
+.bookmark-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bookmark-grid::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.7);
+    border:solid 2px #222;
+    border-radius: 1rem;
+}
+.bookmark-grid::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+    border:solid 2px #222;
+    border-radius: 1rem;
+}
