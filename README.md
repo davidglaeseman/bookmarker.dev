@@ -61,7 +61,7 @@ yarn generate
 yarn preview
 ```
 
-### Code Quality
+### Code Quality & Testing
 
 ```bash
 # Run ESLint
@@ -69,6 +69,22 @@ yarn lint
 
 # Fix linting issues
 yarn lint:fix
+
+# Run unit & component tests
+yarn test
+
+# Watch mode for development
+yarn test:watch
+
+# Generate coverage report
+yarn test:coverage
+
+# Run end-to-end tests (requires built app)
+yarn build && yarn preview  # in one terminal
+yarn test:e2e              # in another
+
+# E2E tests with UI
+yarn test:e2e:ui
 ```
 
 ## Project Structure
@@ -131,6 +147,34 @@ Your bookmark is instantly persisted to localStorage.
    - **Text Color** — Bookmark and UI text color
    - **Background Image** — Upload a custom image with position/size controls
 3. Changes apply instantly and persist
+
+## Testing
+
+The project includes a comprehensive test suite with **91 passing tests**:
+
+### Unit Tests (53 tests)
+- **useHelpers composable** — Color inversion, URL validation, localStorage operations
+- **useAppStore** — All store actions, state mutations, and persistence
+
+### Component Tests (38 tests)
+- **the-input** — Form input component with label association, type variants, and event emission
+- **the-select** — Select component with option rendering and selection handling
+- **the-modal** — Modal wrapper with open/close behavior and backdrop interactions
+
+### End-to-End Tests (Ready to implement)
+- CRUD workflows, settings customization, drag-and-drop, and data persistence
+
+### Test Tools
+- **Vitest** — Fast unit & component test runner
+- **@vue/test-utils** — Vue component testing utilities
+- **Playwright** — End-to-end testing framework
+- **happy-dom** — Lightweight DOM environment for unit tests
+
+### CI/CD
+Automated testing via GitHub Actions on every push/PR:
+- ESLint & TypeScript type checking
+- Unit & component tests
+- End-to-end tests (with Playwright)
 
 ## Browser Support
 

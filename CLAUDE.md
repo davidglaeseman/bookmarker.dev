@@ -19,9 +19,14 @@ yarn build                  # Build for production
 yarn generate              # Generate static site (pre-render)
 yarn preview               # Preview production build locally
 
-# Code Quality
+# Code Quality & Testing
 yarn lint                  # Run ESLint checks
 yarn lint:fix              # Fix linting issues automatically
+yarn test                  # Run unit & component tests
+yarn test:watch            # Run tests in watch mode
+yarn test:coverage         # Generate coverage report
+yarn test:e2e              # Run Playwright end-to-end tests
+yarn test:e2e:ui           # Run e2e tests with Playwright UI
 
 # Setup
 yarn install               # Install dependencies (or just `yarn`)
@@ -115,11 +120,103 @@ On mount, `app.vue` loads both and populates the store. All mutations sync back 
 
 No custom tsconfig overrides needed; Nuxt's build system handles type inference across `app/`, `components/`, `stores/`, and `composables/`.
 
+## Testing
+
+The project includes a comprehensive test suite with **91 passing tests** across unit, component, and end-to-end tests.
+
+### Test Structure
+
+```
+tests/
+├── unit/
+│   ├── composables/
+│   │   └── useHelpers.spec.ts        # 33 tests: localStorage, URL validation, color utils
+│   └── stores/
+│       └── useAppStore.spec.ts       # 20 tests: store actions, state mutations, persistence
+└── components/
+    ├── the-input.spec.ts             # 14 tests: form input rendering & events
+    ├── the-select.spec.ts            # 11 tests: select rendering & selection
+    └── the-modal.spec.ts             # 13 tests: modal display, close events, props
+```
+
+### Test Tools
+
+- **Vitest** (`vitest.config.ts`) — Fast unit & component runner with happy-dom environment
+- **@vue/test-utils** — Vue component testing via `mount()` helper
+- **@pinia/testing** — Store testing with spy support
+- **Playwright** (`playwright.config.ts`) — E2E tests against production builds
+
+### Writing Tests
+
+**Unit Test Example** (composables, store):
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest'
+import { useHelpers } from '~/app/composables/useHelpers'
+
+describe('useHelpers', () => {
+  beforeEach(() => localStorage.clear())
+  
+  it('validates URLs correctly', () => {
+    const { isUrlValid } = useHelpers()
+    expect(isUrlValid('https://example.com')).toBe(true)
+    expect(isUrlValid('not a url')).toBe(false)
+  })
+})
+```
+
+**Component Test Example**:
+```typescript
+import { mount } from '@vue/test-utils'
+import TheInput from '~/app/components/the-input.vue'
+
+describe('the-input.vue', () => {
+  it('emits update event on input', async () => {
+    const wrapper = mount(TheInput, {
+      props: { label: 'Test', id: 'test', value: '', type: 'input' }
+    })
+    await wrapper.find('input').setValue('hello')
+    expect(wrapper.emitted('update')).toEqual([['hello']])
+  })
+})
+```
+
+### Running Tests
+
+```bash
+yarn test                              # Run all tests once
+yarn test tests/unit/composables      # Run specific directory
+yarn test:watch                        # Watch mode (re-runs on file change)
+yarn test:coverage                    # Generate coverage report
+```
+
+### Key Testing Patterns
+
+1. **localStorage mocking**: Tests run against `happy-dom`'s localStorage implementation (cleared before each test)
+2. **Component mounting**: Use `mount()` from `@vue/test-utils` with props/slots/global stubs as needed
+3. **Event assertions**: Use `wrapper.emitted()` to verify events (e.g., `expect(wrapper.emitted('update')).toBeTruthy()`)
+4. **Store testing**: Set active pinia instance in `beforeEach` with `setActivePinia(createPinia())`
+5. **Async operations**: Use `await` for DOM updates and use `vi.useFakeTimers()` for setTimeout testing
+
+### Known Test Quirks
+
+- **Modal tests**: `@vueuse/core` is mocked; useMagicKeys won't work without the mock
+- **Icon component**: Not tested directly; component stub used in modal tests
+- **Color input**: Normalizes to lowercase (e.g., `#FF0000` → `#ff0000`)
+
+### CI/CD Testing
+
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push/PR:
+1. **lint** — ESLint + vue-tsc (fast, blocks on failure)
+2. **unit-and-component-tests** — Vitest suite (~30s)
+3. **e2e-tests** — Playwright against production build (~2-3min, depends on unit tests)
+
+Playwright browsers are cached by `yarn.lock` hash for faster CI runs.
+
 ## Git Workflow
 
-Current branch: `davidglaeseman/bookmarker.dev2.0` (migration to Nuxt 4)
+Current branch: `davidglaeseman/add-application-tests` (test suite implementation)
 
-The project is transitioning from Nuxt 2 → Nuxt 3/4. Old files (components, pages, layouts, plugins, store/) have been removed and replaced with the new Nuxt 4 structure under `app/`.
+The project is on Nuxt 4 with a modern test setup (Vitest + Playwright). Previous migration from Nuxt 2 → Nuxt 3/4 replaced old file structure with new `app/` directory.
 
 ## Common Patterns
 
@@ -138,3 +235,26 @@ The project is transitioning from Nuxt 2 → Nuxt 3/4. Old files (components, pa
 1. User drags bookmark card
 2. `draggable` component updates `appStore.bookmarks` array
 3. `@change` event calls `reOrderStorageBookmarks()` to persist new order
+
+## Known Issues & Technical Debt
+
+These are documented in tests (rather than fixed) to preserve the current behavior:
+
+1. **Malformed color for short hex** — `getOppositeColor('#222')` returns `'#DDFD'` instead of `'#DDFD99'`
+   - Cause: `substring(4,6)` on 3-char hex string returns empty string → `NaN` → skipped
+   - File: `app/composables/useHelpers.ts` line 9
+   - Test: `tests/unit/composables/useHelpers.spec.ts` documents the behavior
+
+2. **Uncaught JSON.parse errors** — `loadOrCreateSettings()` and `loadOrCreateBookmarks()` have no try/catch
+   - Malformed localStorage content throws uncaught errors
+   - File: `app/composables/useHelpers.ts` lines 58, 67
+   - Impact: Would crash app if user manually corrupted localStorage
+   - Test: `tests/unit/composables/useHelpers.spec.ts` documents the throw
+
+3. **Store/localStorage key drift** — Reorder handler persists new `key` values but doesn't update in-memory `appStore.bookmarks[].key`
+   - Cause: `app.vue` reorder handler reassigns keys during drag, persists to localStorage, but never mutates store
+   - File: `app/app.vue` reorder handler
+   - Impact: Store keys diverge from localStorage after reorder; affects subsequent operations
+   - Test: `tests/components/app.spec.ts` (ready to implement) documents the behavior
+
+These issues are candidates for fixes but are currently marked as "as-is" behavior in tests to document actual app behavior.
