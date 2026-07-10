@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Bookmark} from "~/stores/useAppStore";
+import type {Bookmark} from "~/app/stores/useAppStore";
 defineProps<{
   bookmark: Bookmark;
   size: number;
