@@ -28,6 +28,9 @@ onMounted(()=>{
   if(bookmarks){
     appStore.bookmarks = bookmarks
   }
+  console.clear()
+  console.log("%cbookmarker%c.%cdev","background:#5e00ff;color:#fff;padding:5px;padding-right:0;","background:#5e00ff;color:#84FF00FF;padding:5px 0;","background:#5e00ff;color:#84FF00FF;padding:5px;padding-left:0;")
+  console.log("%chttps://github.com/davidglaeseman/bookmarker.dev","background:#5e00ff;color:#fff;padding:5px;")
 })
 useHead({
   title:"bookmarker.dev | free simple bookmarks"
@@ -88,6 +91,9 @@ useHead({
 </template>
 
 <style scoped>
+.console{
+  background: #84ff00;
+}
 .sortable-chosen{
   background: rgb(0 0 0 / 0.8);
   border-radius: 0.5rem;
