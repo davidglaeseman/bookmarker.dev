@@ -1,4 +1,4 @@
-import {type Bookmark, SettingDefault} from "~/stores/useAppStore";
+import {type Bookmark, SettingDefault} from "~/app/stores/useAppStore";
 
 export const useHelpers = () => {
 
@@ -136,7 +136,10 @@ export const useHelpers = () => {
         setStorageSetting,
         loadStorageValue,
         getOppositeColor,
-        isUrlValid
+        isUrlValid,
+        checkLocalStorage,
+        loadOrCreateSettings,
+        loadOrCreateBookmarks
     }
 
 }

@@ -10,7 +10,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-col relative  rounded-md border border-transparent hover:border-white">
+  <div class="flex flex-col relative  rounded-md border border-transparent hover:border-white bg-black/10 backdrop-blur-xs hover:backdrop-blur-sm hover:bg-black/20">
     <a class="w-full inline-flex grow items-center text-center  p-2 justify-center min-h-[90px]" :href="bookmark.url" target="_blank">
       <div>
         <div v-if="bookmark.favicon" class="flex items-center justify-center mb-2"><img width="50" height="50" :alt="`${bookmark.name} Icon`"  class="inline-block max-h-[50px]"  :src="bookmark.favicon"></div>
