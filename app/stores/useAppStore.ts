@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { useHelpers } from '~/app/composables/useHelpers'
+import { useHelpers } from '@/composables/useHelpers'
 
 export type Bookmark = {
   name: string;

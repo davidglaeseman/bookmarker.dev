@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type Bookmark, useAppStore} from "~/app/stores/useAppStore";
+import {type Bookmark, useAppStore} from "@/stores/useAppStore";
 const {setStorageBookmarks, deleteStorageBookmark, isUrlValid} = useHelpers()
 const appStore = useAppStore()
 const props = defineProps<{

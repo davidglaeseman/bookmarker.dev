@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { useHelpers } from '~/app/composables/useHelpers'
-import { SettingDefault } from '~/app/stores/useAppStore'
+import { useHelpers } from '@/composables/useHelpers'
+import { SettingDefault } from '@/stores/useAppStore'
 
 describe('useHelpers', () => {
   beforeEach(() => {

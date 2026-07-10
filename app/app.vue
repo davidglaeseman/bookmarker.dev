@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import {useAppStore, type Bookmark} from "~/app/stores/useAppStore";
+import {useAppStore, type Bookmark} from "@/stores/useAppStore";
 const {getOppositeColor, loadStorageValue, reOrderStorageBookmarks} = useHelpers()
 const appStore = useAppStore()
 const drag = ref<boolean>(false)
