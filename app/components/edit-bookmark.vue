@@ -52,7 +52,7 @@ const deleteBookmark = () => {
 </script>
 
 <template>
-    <form class="min-w-[400px] relative p-1" @submit.prevent="saveBookmark">
+    <form class=" relative p-1" @submit.prevent="saveBookmark">
       <div v-if="confirmDelete" class="absolute left-0 top-0 bg-black w-full h-full z-20 text-white flex items-center p-2">
         <div class="w-full text-center">
           <div class="mb-2">
@@ -89,7 +89,7 @@ const deleteBookmark = () => {
           :help="invalidUrl ? 'Invalid URL' : ''"
           required
           @update="(value: string) => {
-            url = value
+            url = value.toLowerCase()
             if(value?.length === 0){
               invalidUrl = false
             } else if(isUrlValid(value)){
@@ -106,12 +106,12 @@ const deleteBookmark = () => {
           label="favicon"
           :value="favicon"
           type="input"
-          @update="(value: string) => favicon = value"
+          @update="(value: string) => favicon = value.toLowerCase()"
       />
 
       <div class="flex gap-2">
         <div class="grow flex gap-2 items-center">
-          <button type="button" class="bg-red-600 hover:bg-red-700 py-1 px-2" @click="confirmDelete=true">
+          <button v-if="!bookmark?.new" type="button" class="bg-red-600 hover:bg-red-700 py-1 px-2" @click="confirmDelete=true">
             Delete
           </button>
           <div v-if="saved" class="bg-green-500 text-center w-full p-1">
