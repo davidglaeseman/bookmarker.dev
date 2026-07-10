@@ -3,13 +3,14 @@ import { mount } from '@vue/test-utils'
 import TheModal from '@/components/the-modal.vue'
 
 // Mock @vueuse/core
-vi.mock('@vueuse/core', () => ({
-  useMagicKeys: () => ({
-    escape: {
-      value: false,
-    },
-  }),
-}))
+vi.mock('@vueuse/core', async () => {
+  const { ref } = await import('vue')
+  return {
+    useMagicKeys: () => ({
+      escape: ref(false),
+    }),
+  }
+})
 
 describe('the-modal.vue', () => {
   describe('rendering', () => {

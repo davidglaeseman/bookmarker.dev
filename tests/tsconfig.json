@@ -1,0 +1,10 @@
+{
+  // Tests live outside app/, so they aren't covered by Nuxt's generated
+  // tsconfigs. Extend the app config to inherit target (ESNext), lib (dom),
+  // moduleResolution, and the @/* -> app/* path aliases.
+  "extends": "../.nuxt/tsconfig.app.json",
+  "include": [
+    "./**/*.ts",
+    "./**/*.vue"
+  ]
+}
