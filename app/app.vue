@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import {useAppStore, type Bookmark} from "~/stores/useAppStore";
+import {useAppStore, type Bookmark} from "~/app/stores/useAppStore";
 const {getOppositeColor, loadStorageValue, reOrderStorageBookmarks} = useHelpers()
 const appStore = useAppStore()
 const drag = ref<boolean>(false)
@@ -14,7 +14,7 @@ const textColor = computed(() => appStore.setting.textColor ?? '#fff')
 const logoBgColor = computed(()=> getOppositeColor(appStore.setting.backgroundColor))
 const activeBookmark = ref<null | Bookmark>(null)
 const log = () => {
-  const newOrder = appStore.bookmarks.map((bm, index) => ({
+  const newOrder = appStore.bookmarks.map((bm: Bookmark, index: number) => ({
     ...bm,
     key: index
   }))

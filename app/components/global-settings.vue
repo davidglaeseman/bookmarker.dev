@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useAppStore} from "~/stores/useAppStore";
+import {useAppStore} from "~/app/stores/useAppStore";
 const appStore = useAppStore()
 const {isUrlValid } = useHelpers()
 const backgroundSizes = [
